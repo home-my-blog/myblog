@@ -1,0 +1,60 @@
+name: deploy
+
+# main에 푸시되거나 PR이 합쳐지면 검사를 돌리고, 통과하면 서버에 배포한다.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t myblog:${{ github.sha }} .
+          docker save myblog:${{ github.sha }} | gzip > myblog-image.tar.gz
+
+      - name: Upload image and script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_ADDRESS }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_ID }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: myblog-image.tar.gz,deploy/deploy.sh
+          target: myblog-deploy
+          overwrite: true
+
+      - name: Run deploy script on server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          DB_ADDRESS: ${{ secrets.DB_ADDRESS }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          IMAGE_TAG: ${{ github.sha }}
+        with:
+          host: ${{ secrets.SSH_ADDRESS }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_ID }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          envs: DB_ADDRESS,DB_PORT,DB_NAME,DB_SCHEMA,DB_USERNAME,DB_PASSWORD,IMAGE_TAG
+          command_timeout: 15m
+          script: |
+            cd ~/myblog-deploy
+            chmod +x deploy/deploy.sh
+            ./deploy/deploy.sh ~/myblog-deploy/myblog-image.tar.gz "$IMAGE_TAG"
+            rm -f ~/myblog-deploy/myblog-image.tar.gz
