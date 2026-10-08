@@ -75,7 +75,7 @@ public class TrendingService {
         }
         List<String[]> commented = jdbc.sql("""
                 SELECT lower(p.title) AS t FROM comments cm JOIN posts p ON p.id = cm.post_id
-                WHERE cm.created_at >= ? AND """ + PostQueryService.PUBLIC_ONLY)
+                WHERE cm.created_at >= ? AND\s""" + PostQueryService.PUBLIC_ONLY)
                 .param(sinceOffset)
                 .query((rs, i) -> new String[] {rs.getString("t")}).list();
 
