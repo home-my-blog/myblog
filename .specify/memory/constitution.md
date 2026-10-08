@@ -19,7 +19,7 @@ spec, plan, tasks, 코드, 테스트는 근거가 되는 원본 ID(`CF-05-3`, `B
 ### III. 단순하게 시작한다 (Simplicity)
 
 서버는 기능별 패키지로 나눈 **단일 Spring Boot 서버**다(MUST). MSA, JWT, 메시지 큐(RabbitMQ·Kafka),
-검색 전용 서버(Elasticsearch)는 쓰지 않는다([기술스택-아키텍처.md 4장](../../docs/기술스택-아키텍처.md)).
+검색 전용 서버(Elasticsearch)는 쓰지 않는다([기술스택-아키텍처.md 4장](https://github.com/home-my-blog/docs/blob/main/docs/기술스택-아키텍처.md)).
 새 인프라 구성 요소는 spec의 요구사항을 그것 없이 지킬 수 없다는 근거를 plan.md에 적을 때만
 들인다(MUST). 잃어도 되는 짧은 값만 Redis에 두고, 로그인은 Redis 없이도 동작해야 한다(MUST).
 
@@ -46,7 +46,7 @@ NF-06). 비밀 값(DB·SMTP·MinIO 비밀번호)은 코드가 아니라 환경 �
 
 ## 기술·운영 제약
 
-- 기술 스택은 [기술스택-아키텍처.md](../../docs/기술스택-아키텍처.md)를 따른다: React(Vite) 화면,
+- 기술 스택은 [기술스택-아키텍처.md](https://github.com/home-my-blog/docs/blob/main/docs/기술스택-아키텍처.md)를 따른다: React(Vite) 화면,
   Spring Boot(Java) 서버와 Spring Security, PostgreSQL(세션 포함), Redis(인증번호 등 짧은 값),
   이미지 저장소(MinIO 가안, `ImageStorage`로 감싸 서버 디스크로 교체 가능), SMTP 메일, Flyway,
   Docker Compose. 이 문서의 상태가 바뀌면 plan.md를 함께 고친다.

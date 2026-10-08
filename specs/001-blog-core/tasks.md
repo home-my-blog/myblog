@@ -27,7 +27,7 @@ description: "MyBlog 1차 개발 범위 작업 목록"
 
 **Purpose**: 프로젝트 뼈대와 개발 인프라
 
-- [ ] T001 저장소 루트에 `docker-compose.yml` 작성: `postgres:16`(5432, `POSTGRES_PASSWORD=${DB_PASSWORD}`, pg_trgm 사용), `redis:7`(6379), MinIO(9000/9001, 버전 고정, [04-MinIO](../../docs/가이드/04-MinIO-현황과-선택.md)) — 볼륨 포함
+- [ ] T001 저장소 루트에 `docker-compose.yml` 작성: `postgres:16`(5432, `POSTGRES_PASSWORD=${DB_PASSWORD}`, pg_trgm 사용), `redis:7`(6379), MinIO(9000/9001, 버전 고정, [04-MinIO](https://github.com/home-my-blog/docs/blob/main/docs/가이드/04-MinIO-현황과-선택.md)) — 볼륨 포함
 - [ ] T002 [P] 저장소 루트에 `.env.example`(DB_PASSWORD, MINIO_USER, MINIO_PASSWORD, MYBLOG_MAIL_MODE=log, SMTP_HOST/PORT/USERNAME/PASSWORD)와 `.gitignore`(`.env`, `build/`, `node_modules/`, `.idea/`) 작성
 - [ ] T003 `backend/`에 Spring Boot 3.5 / Java 21 / Gradle Kotlin DSL 프로젝트 생성(`backend/build.gradle.kts`): web, security, session-jdbc, data-jpa, validation, data-redis, mail, flyway, postgresql, AWS SDK v2 s3, testcontainers(postgresql, junit), spring-security-test
 - [ ] T004 [P] `frontend/`에 Vite + React 19 + TypeScript 프로젝트 생성(`frontend/package.json`): react-router, @tanstack/react-query, react-markdown, remark-gfm, recharts, vitest, @testing-library/react, eslint

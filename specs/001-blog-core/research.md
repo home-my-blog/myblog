@@ -2,7 +2,7 @@
 
 > **변경 (2026-10-08)**: §2의 Spring Session JDBC 대신 서버 메모리 세션 + `SessionRegistry`를 쓴다(세션 표를 뺐다). §7, §8, §11의 커뮤니티 부분은 커뮤니티를 빼면서 해당 없음.
 
-기술 선택의 대부분은 [기술스택-아키텍처.md](../../docs/기술스택-아키텍처.md)에서 이미 정했다(React,
+기술 선택의 대부분은 [기술스택-아키텍처.md](https://github.com/home-my-blog/docs/blob/main/docs/기술스택-아키텍처.md)에서 이미 정했다(React,
 Spring Boot, PostgreSQL, Redis, MinIO, SMTP, Flyway, Docker Compose, 세션 방식, BCrypt). 여기에는
 그 문서가 **미정·가안으로 남긴 것**과 **구현에 필요한 세부 결정**만 적는다.
 
@@ -144,7 +144,7 @@ Spring Boot, PostgreSQL, Redis, MinIO, SMTP, Flyway, Docker Compose, 세션 방�
 
 ## 14. 배포
 
-- **Decision**: 이번 범위는 로컬 개발 환경까지. 배포는 [05-배포-준비.md](../../docs/가이드/05-배포-준비.md)에서
+- **Decision**: 이번 범위는 로컬 개발 환경까지. 배포는 [05-배포-준비.md](https://github.com/home-my-blog/docs/blob/main/docs/가이드/05-배포-준비.md)에서
   환경이 정해지면 별도 기능으로 다룬다. 다만 서버는 `bootJar`, 화면은 `vite build` 결과를 서버의 정적 파일로
   함께 낼 수 있게 만들어 둔다(배포 단위 하나).
 - **Rationale**: 기술스택 5장 "배포 환경 미정". 일정(2주) 안에서 기능을 먼저 끝낸다.

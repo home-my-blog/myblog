@@ -2,7 +2,7 @@
 
 여러 회원이 블로그를 하나씩 운영하는 티스토리형 서비스입니다.
 
-- 요구사항 원본: [`docs/`](docs/) · 스펙: [`specs/001-blog-core/`](specs/001-blog-core/)
+- 요구사항 원본과 가이드 문서: [home-my-blog/docs](https://github.com/home-my-blog/docs) 저장소 · 스펙: [`specs/001-blog-core/`](specs/001-blog-core/)
 - 화면: `frontend/` (React + Vite + TypeScript)
 - 서버: `backend/` (Spring Boot 3.5, Java 21, PostgreSQL 16, Redis 7)
 

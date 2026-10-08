@@ -11,7 +11,7 @@
 ## Summary
 
 여러 회원이 블로그를 하나씩 운영하는 티스토리형 서비스를 만든다. 기술은 수연님의
-[기술스택-아키텍처.md](../../docs/기술스택-아키텍처.md) 가안을 그대로 따른다: React(Vite) 화면이 REST
+[기술스택-아키텍처.md](https://github.com/home-my-blog/docs/blob/main/docs/기술스택-아키텍처.md) 가안을 그대로 따른다: React(Vite) 화면이 REST
 API(JSON)로 **단일 Spring Boot 서버**를 부르고, 서버는 PostgreSQL(데이터 + 세션), Redis(인증번호 등
 짧은 값), 이미지 저장소(MinIO, `ImageStorage`로 교체 가능), SMTP를 쓴다. 로그인은 서버 세션 쿠키
 (Spring Session JDBC), 비밀번호는 BCrypt, DB 변경은 Flyway, 개발 인프라는 Docker Compose다.
