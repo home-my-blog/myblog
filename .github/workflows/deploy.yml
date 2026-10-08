@@ -54,6 +54,7 @@ jobs:
           envs: DB_ADDRESS,DB_PORT,DB_NAME,DB_SCHEMA,DB_USERNAME,DB_PASSWORD,IMAGE_TAG
           command_timeout: 15m
           script: |
+            set -e
             cd ~/myblog-deploy
             chmod +x deploy/deploy.sh
             ./deploy/deploy.sh ~/myblog-deploy/myblog-image.tar.gz "$IMAGE_TAG"
