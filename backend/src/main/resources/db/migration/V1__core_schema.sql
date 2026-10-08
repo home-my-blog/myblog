@@ -1,7 +1,13 @@
 -- MyBlog 기본 표 (specs/001-blog-core/data-model.md, Crowfoot 문서 669와 같은 구조)
 -- 세션 표와 커뮤니티 표는 이번 범위에서 뺐다.
 
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
+-- pg_trgm은 제목·본문 검색 색인에만 쓴다. 확장을 만들 권한이 없는 DB(Crowfoot 매니지드 등)에서는 건너뛴다.
+DO $$
+BEGIN
+    CREATE EXTENSION IF NOT EXISTS pg_trgm;
+EXCEPTION WHEN insufficient_privilege THEN
+    RAISE NOTICE 'pg_trgm을 만들 권한이 없어 검색 색인 없이 진행한다';
+END $$;
 
 CREATE TABLE member (
     id                 bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -93,8 +99,13 @@ CREATE INDEX idx_post_blog_created ON post (blog_id, created_at DESC, id DESC);
 CREATE INDEX idx_post_visibility_created ON post (visibility, created_at DESC);
 CREATE INDEX idx_post_category_id ON post (category_id);
 CREATE INDEX idx_post_author_id ON post (author_id);
-CREATE INDEX idx_post_title_trgm ON post USING gin (title gin_trgm_ops);
-CREATE INDEX idx_post_body_trgm ON post USING gin (body gin_trgm_ops);
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm') THEN
+        CREATE INDEX idx_post_title_trgm ON post USING gin (title gin_trgm_ops);
+        CREATE INDEX idx_post_body_trgm ON post USING gin (body gin_trgm_ops);
+    END IF;
+END $$;
 
 ALTER TABLE post_image
     ADD CONSTRAINT fk_post_image_post FOREIGN KEY (post_id) REFERENCES post (id) ON DELETE CASCADE;
