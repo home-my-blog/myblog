@@ -42,3 +42,8 @@ tasks.withType<JavaCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+// 배포 이미지에는 실행 가능한 jar 하나만 넣는다
+tasks.named<Jar>("jar") {
+    enabled = false
+}

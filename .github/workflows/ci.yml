@@ -1,9 +1,8 @@
 name: ci
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  workflow_call: # main에 들어오면 deploy.yml이 이 검사를 먼저 돌린다
 
 jobs:
   backend:
