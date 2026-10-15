@@ -6,14 +6,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          B="https://sonarcloud.io/api/issues/search?componentKeys=home-my-blog_myblog&branch=develop&issueStatuses=OPEN,CONFIRMED&impactSoftwareQualities=MAINTAINABILITY&ps=1"
-          curl -s "$B&facets=impactSeverities,rules,directories,languages" > f.json
-          python3 - <<'PY'
-          import json
-          d=json.load(open('f.json'))
-          print('::notice::total', d.get('total'))
-          for f in d.get('facets',[]):
-              vals=sorted(f['values'],key=lambda v:-v['count'])[:25]
-              print('::notice::'+f['property']+' '+'; '.join(f"{v['val']}={v['count']}" for v in vals))
+          for Q in RELIABILITY SECURITY; do
+            curl -s "https://sonarcloud.io/api/issues/search?componentKeys=home-my-blog_myblog&branch=develop&issueStatuses=OPEN,CONFIRMED&impactSoftwareQualities=$Q&ps=100" > $Q.json
+            Q=$Q python3 - <<'PY'
+          import json,os
+          q=os.environ['Q']; d=json.load(open(q+'.json'))
+          print(f"::notice::{q} total {d.get('total')}")
+          for i in d.get('issues',[]):
+              sev=','.join(x['severity'] for x in i.get('impacts',[]))
+              print(f"::notice::{q} {sev} {i['rule']} {i['component'].split(':',1)[-1]}:{i.get('line')} {i['message'][:150]}")
           PY
-          curl -s "https://sonarcloud.io/api/rules/search?organization=home-my-blog&rule_keys=$(python3 -c "import json;d=json.load(open('f.json'));print(','.join(v['val'] for f in d['facets'] if f['property']=='rules' for v in sorted(f['values'],key=lambda v:-v['count'])[:25]))")&ps=50&f=name" | python3 -c "import sys,json;[print('::notice::'+r['key']+' '+r['name']) for r in json.load(sys.stdin).get('rules',[])]"
+          done
+          curl -s "https://sonarcloud.io/api/hotspots/search?projectKey=home-my-blog_myblog&branch=develop&status=TO_REVIEW&ps=100" | python3 -c "
+          import sys,json
+          d=json.load(sys.stdin); print('::notice::HOTSPOT total',d.get('paging',{}).get('total'))
+          for h in d.get('hotspots',[]): print('::notice::HOTSPOT',h.get('vulnerabilityProbability'),h.get('securityCategory'),h['component'].split(':',1)[-1]+':'+str(h.get('line')),h['message'][:150])"
