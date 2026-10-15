@@ -11,13 +11,15 @@ jobs:
             Q=$Q python3 - <<'PY'
           import json,os
           q=os.environ['Q']; d=json.load(open(q+'.json'))
-          print(f"::notice::{q} total {d.get('total')}")
+          L=[f"{q} total {d.get('total')}"]
           for i in d.get('issues',[]):
               sev=','.join(x['severity'] for x in i.get('impacts',[]))
-              print(f"::notice::{q} {sev} {i['rule']} {i['component'].split(':',1)[-1]}:{i.get('line')} {i['message'][:150]}")
+              L.append(f"{sev} {i['rule']} {i['component'].split(':',1)[-1]}:{i.get('line')} {i['message'][:110]}")
+          print('::notice::'+'%0A'.join(L))
           PY
           done
           curl -s "https://sonarcloud.io/api/hotspots/search?projectKey=home-my-blog_myblog&branch=develop&status=TO_REVIEW&ps=100" | python3 -c "
           import sys,json
-          d=json.load(sys.stdin); print('::notice::HOTSPOT total',d.get('paging',{}).get('total'))
-          for h in d.get('hotspots',[]): print('::notice::HOTSPOT',h.get('vulnerabilityProbability'),h.get('securityCategory'),h['component'].split(':',1)[-1]+':'+str(h.get('line')),h['message'][:150])"
+          d=json.load(sys.stdin); L=['HOTSPOT total '+str(d.get('paging',{}).get('total'))]
+          L+=[' '.join(map(str,[h.get('vulnerabilityProbability'),h.get('securityCategory'),h['component'].split(':',1)[-1]+':'+str(h.get('line')),h['message'][:110]])) for h in d.get('hotspots',[])]
+          print('::notice::'+'%0A'.join(L))"
