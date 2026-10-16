@@ -29,7 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
-    implementation(platform("software.amazon.awssdk:bom:2.31.50"))
+    implementation(platform("software.amazon.awssdk:bom:2.55.15"))
     implementation("software.amazon.awssdk:s3")
     runtimeOnly("org.postgresql:postgresql")
 
