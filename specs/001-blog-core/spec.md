@@ -12,7 +12,7 @@
 
 **Input**: 저장소의 [`docs/`](https://github.com/home-my-blog/docs/blob/main/docs/) 요구사항 문서 전체.
 [요구사항.md](https://github.com/home-my-blog/docs/blob/main/docs/요구사항.md)(화면 기준 개인 요구사항, 2026-10-01),
-[요구사항-공통.md](https://github.com/home-my-blog/docs/blob/main/docs/요구사항-공통.md)(팀 공통 기능 CF-01~24, 2026-10-02),
+[요구사항-공통.md](https://github.com/home-my-blog/docs/blob/main/docs/요구사항-공통.md)(공통 기능 CF-01~24, 2026-10-02),
 [상세/](https://github.com/home-my-blog/docs/blob/main/docs/상세/00-목차.md)(CF·BM·NF 세부 규칙),
 [기술스택-아키텍처.md](https://github.com/home-my-blog/docs/blob/main/docs/기술스택-아키텍처.md)(기술 가안).
 
@@ -317,8 +317,8 @@ MyBlog는 **여러 회원이 각자 블로그를 하나씩 운영하고, 방문�
 
 ## Assumptions
 
-원본에서 "정하지 못한 것"으로 남은 항목에 대해 이번 개발이 쓰는 기본값이다. `확인 필요`는 수연님 또는
-팀이 정하면 바꾼다.
+원본에서 "정하지 못한 것"으로 남은 항목에 대해 이번 개발이 쓰는 기본값이다. `확인 필요`는 수연님이
+정하면 바꾼다.
 
 - **블로그 개수**: 1인 1블로그(CF-03-1). 데이터 구조는 나중에 여러 개로 늘릴 수 있게 둔다.
 - **블로그 주제** `확인 필요`: 가입 시 만들어지는 블로그의 주제는 "취미"로 시작하고, 블로그 설정(BM-07)에서 바꾼다. 원본 BM-07에는 주제 항목이 없어 추가했다.
@@ -334,4 +334,4 @@ MyBlog는 **여러 회원이 각자 블로그를 하나씩 운영하고, 방문�
 - **조회수**: 블로그 주인 본인 조회와 비공개 글 조회는 세지 않는다(BM-06 미정 항목, 기술스택 3장 F를 따름).
 - **화면 구조**: 마이페이지와 블로그 관리를 둘로 나눈다(BM-01-3, 시안 기준).
 - **범위 밖**: 관리자 화면, 소셜 로그인, 광고·수익, 외부 API, 블로그 스킨, 프로필 사진, 댓글 수정, 대댓글, 구독·알림 목록, AI 기능. (요구사항.md 6장, CF-23, CF-24, CF-15-8, CF-18-5)
-- **팀 공통 문서**: [요구사항-공통.md](https://github.com/home-my-blog/docs/blob/main/docs/요구사항-공통.md)의 `회의 결과` 칸은 아직 비어 있다. 회의에서 바뀌는 항목이 있으면 이 명세를 함께 고친다.
+- **공통 기능 문서**: [요구사항-공통.md](https://github.com/home-my-blog/docs/blob/main/docs/요구사항-공통.md)에서 바뀌는 항목이 있으면 이 명세를 함께 고친다.

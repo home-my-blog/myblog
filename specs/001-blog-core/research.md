@@ -12,7 +12,7 @@ Spring Boot, PostgreSQL, Redis, MinIO, SMTP, Flyway, Docker Compose, 세션 방�
   Vite, TypeScript.
 - **Rationale**: 현재 지원 중인 LTS·안정 버전이다. Java 21의 record·switch 패턴으로 DTO와 검증 코드가
   짧아진다. Gradle은 Spring Initializr 기본값이고 IntelliJ(수연님 환경)와 잘 맞는다.
-- **Alternatives considered**: Java 17(가능하지만 새로 시작하면 21이 유리), Maven(팀원이 Maven이면 바꿔도
+- **Alternatives considered**: Java 17(가능하지만 새로 시작하면 21이 유리), Maven(익숙하다면 바꿔도
   무방), JavaScript만 쓰는 React(타입이 없으면 API 응답 모양 실수가 늘어남)
 
 ## 2. 세션과 CSRF를 React와 함께 쓰는 방법
