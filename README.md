@@ -23,7 +23,7 @@
 | 사이트 | **https://sagak.java21.net** |
 | 현재 버전 | v1.11.1 ([CHANGELOG](CHANGELOG.md)) |
 | 기간 | 2026.10.08 ~ 2026.10.16 |
-| 인원 | 4인 팀. 팀원 4명의 요구사항을 비교해 공통 기능을 함께 정하고([공통 요구사항](https://github.com/home-my-blog/docs/blob/main/docs/기획/요구사항-공통.md)), 구현은 각자 진행 |
+| 인원 | 1인 (개인 프로젝트) |
 | 담당 | 사각의 기획 · 설계 · 백엔드 · 프론트엔드 · 배포 전부 |
 | 개발 저장소 | [home-my-blog/myblog](https://github.com/home-my-blog/myblog) (PR · 이슈 · 릴리스 기록) |
 | 문서 | [home-my-blog/docs](https://github.com/home-my-blog/docs) (기능 설명 · 동작 원리 · API · ERD) |
@@ -50,7 +50,7 @@
 
 ## 개발 방식: AI 페어 프로그래밍
 
-AI 코딩 에이전트(Claude Code)를 팀원처럼 두고 개발했다. 무엇을 만들지, 어떤 기술을 쓸지, 무엇을 합칠지는 직접 결정하고, AI는 그 결정을 스펙 · 코드 · 테스트로 옮기는 역할을 맡았다.
+AI 코딩 에이전트(Claude Code)를 페어 프로그래머로 두고 개발했다. 무엇을 만들지, 어떤 기술을 쓸지, 무엇을 합칠지는 직접 결정하고, AI는 그 결정을 스펙 · 코드 · 테스트로 옮기는 역할을 맡았다.
 
 | 역할 | 담당 |
 |---|---|
