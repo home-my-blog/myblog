@@ -3,7 +3,7 @@
 PostgreSQL 16 기준. 모든 표의 기본 키는 `id bigint generated always as identity`이고, 시각 칸은
 `timestamptz`(UTC 저장, 화면은 Asia/Seoul). Flyway 마이그레이션으로 만든다. 괄호는 원본 요구사항 ID.
 
-표 이름은 복수형으로 바꿨다(2026-10-08, 팀 리뷰). `post_report`는 `post_flags`로 바꿨다 — "report"가
+표 이름은 복수형으로 바꿨다(2026-10-08, 리뷰). `post_report`는 `post_flags`로 바꿨다 — "report"가
 '보고서'로 읽혀서 신고는 "flag"로 부른다. 칸 이름(`post_id`, `member_id` 등)은 그대로다. V1은 손대지 않고
 `V2__plural_table_names.sql`에서 표·제약·인덱스·시퀀스 이름만 바꾼다.
 
@@ -38,7 +38,7 @@ daily_stats (blogs, posts NULL 가능, date)     search_logs (keyword, time)
 | deleted_at | timestamptz | NULL. 탈퇴 신청 시각 (소프트 삭제). 부분 인덱스 `WHERE deleted_at IS NOT NULL` |
 | anonymized_at | timestamptz | NULL. 보관 기간이 지나 개인정보를 지운 시각. `deleted_at`이 있어야 한다(CHECK) |
 
-- 탈퇴(2026-10-08, 팀 리뷰 — `V4__soft_withdraw.sql`): 탈퇴하면 `deleted_at`만 찍고 모든 기기에서 로그아웃한다.
+- 탈퇴(2026-10-08, 리뷰 — `V4__soft_withdraw.sql`): 탈퇴하면 `deleted_at`만 찍고 모든 기기에서 로그아웃한다.
   - 보관 기간(`myblog.member.withdraw-keep`, 기본 30일)에는 블로그·글이 아무에게도 보이지 않고(`PostQueryService.ACTIVE_AUTHOR`,
     블로그 조회·목록·검색에서 `deleted_at IS NULL`), 댓글은 "탈퇴한 사용자"로 보인다. 같은 이메일로 가입할 수 없고
     (`EMAIL_WITHDRAWN`), 비밀번호 찾기 메일도 가지 않는다. 로그인하면 `ACCOUNT_WITHDRAWN`(409, `restorableUntil`)으로
@@ -217,7 +217,7 @@ daily_stats (blogs, posts NULL 가능, date)     search_logs (keyword, time)
 
 인덱스: `(post_id, created_at)`(글 상세, 오래된 순), `(created_at)` + posts→blogs 조인(댓글 관리, 새 댓글 수), `(parent_id)`.
 
-답글은 한 단계만 단다(2026-10-08, 팀 리뷰 — `V3__comment_replies.sql`). 깊이가 정해져 있어 재귀 쿼리 없이
+답글은 한 단계만 단다(2026-10-08, 리뷰 — `V3__comment_replies.sql`). 깊이가 정해져 있어 재귀 쿼리 없이
 쿼리 한 번으로 화면 순서대로 읽는다: `ORDER BY COALESCE(parent_id, id), parent_id NULLS FIRST, created_at, id`
 → 원 댓글, 그 답글들, 다음 원 댓글… API는 원 댓글마다 `replies`로 묶어 준다. 더 깊은 답글이 필요해지면
 경로(path) 칸이나 클로저 표로 바꾼다.
