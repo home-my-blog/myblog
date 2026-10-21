@@ -27,6 +27,7 @@
 | 담당 | 사각의 기획 · 설계 · 백엔드 · 프론트엔드 · 배포 전부 |
 | 개발 저장소 | [home-my-blog/myblog](https://github.com/home-my-blog/myblog) (PR · 이슈 · 릴리스 기록) |
 | 문서 | [home-my-blog/docs](https://github.com/home-my-blog/docs) (기능 설명 · 동작 원리 · API · ERD) |
+| 결과 보고서 | [PPT · PDF](https://github.com/home-my-blog/docs/blob/main/docs/보고서/00-안내.md) (2026-10-21 제출) |
 | 요구사항 · 스펙 | [`specs/001-blog-core/`](specs/001-blog-core/) |
 | 개발 방식 | AI 코딩 에이전트(Claude Code)와 페어 프로그래밍. 방향 결정 · 검토 · 검증은 직접 수행([개발 방식](#개발-방식-ai-페어-프로그래밍)) |
 
@@ -281,6 +282,7 @@ myblog/
 - [기능 설명](https://github.com/home-my-blog/docs/blob/main/docs/기능/00-목차.md), [동작 원리](https://github.com/home-my-blog/docs/blob/main/docs/원리/00-목차.md)
 - 스펙과 설계 결정: [`specs/001-blog-core/`](specs/001-blog-core/) (`research.md`에 결정과 대안)
 - 변경 이력: [CHANGELOG.md](CHANGELOG.md)
+- 결과 보고서(개인 프로젝트 소개자료, PPT · PDF): [docs/보고서](https://github.com/home-my-blog/docs/blob/main/docs/보고서/00-안내.md)
 
 ## 개발 환경 (로컬 실행)
 
