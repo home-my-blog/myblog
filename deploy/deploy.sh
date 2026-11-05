@@ -26,7 +26,8 @@ NETWORK=myblog-net
 PORT=8390
 # 8390을 어느 주소에서 받을지. 127.0.0.1(기본)이면 이 서버 안에서만, 내부망 IP(예: 192.168.x.x)면 그 내부망에서만,
 # "all"이면 모든 주소(공인 IP 포함)에서 받는다. 서버 nginx가 https 손님을 넘겨 주는 주소에 맞춘다.
-# 서버 nginx는 sagak.java21.net을 localhost:8390으로 넘긴다(2026-10-14 status 워크플로로 확인).
+# 서버 nginx는 2026-10-14에는 localhost:8390으로 넘겼고, 2026-11-04부터는 nginx manager가 http://10.116.64.12:8390 으로 넘긴다.
+# 그래서 deploy.yml이 PROXY_BIND를 10.116.64.12로 넘긴다. 직접 실행할 때 비워 두면 127.0.0.1이다.
 PROXY_BIND="${PROXY_BIND:-127.0.0.1}"
 [[ "${PROXY_BIND}" == "all" ]] && PROXY_BIND=""
 PUBLISH="${PROXY_BIND:+${PROXY_BIND}:}${PORT}:${PORT}"
