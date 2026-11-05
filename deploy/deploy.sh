@@ -24,10 +24,11 @@ PROXY_IMAGE=nginx:1.27-alpine
 REDIS=myblog-redis
 NETWORK=myblog-net
 PORT=8390
-# 8390을 어느 주소에서 받을지. 127.0.0.1(기본)이면 이 서버 안에서만, 내부망 IP(예: 192.168.x.x)면 그 내부망에서만,
+# 8390을 어느 주소에서 받을지. 127.0.0.1이면 이 서버 안에서만, 내부망 IP(예: 192.168.x.x)면 그 내부망에서만,
 # "all"이면 모든 주소(공인 IP 포함)에서 받는다. 서버 nginx가 https 손님을 넘겨 주는 주소에 맞춘다.
-# 서버 nginx는 sagak.java21.net을 localhost:8390으로 넘긴다(2026-10-14 status 워크플로로 확인).
-PROXY_BIND="${PROXY_BIND:-127.0.0.1}"
+# 학원 nginx(s2-nginx)는 sagak.java21.net을 내부망 주소 10.116.64.12:8390으로 넘긴다(2026-11-04 확인. 그 전에는 localhost였다).
+# 그래서 기본값을 10.116.64.12로 두어 내부망에서만 받는다(공인 IP로는 여전히 막힌다).
+PROXY_BIND="${PROXY_BIND:-10.116.64.12}"
 [[ "${PROXY_BIND}" == "all" ]] && PROXY_BIND=""
 PUBLISH="${PROXY_BIND:+${PROXY_BIND}:}${PORT}:${PORT}"
 DATA_DIR="${MYBLOG_DATA_DIR:-$HOME/myblog-data}"
