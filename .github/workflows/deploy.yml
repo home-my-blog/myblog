@@ -62,12 +62,15 @@ jobs:
           KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          # 8390을 어느 주소에서 받을지 (저장소 변수, 선택). 서버 nginx(nginx manager)의 업스트림 주소에 맞춘다.
+          # 2026-11-04부터 nginx manager가 http://10.116.64.12:8390 으로 넘겨서 기본값을 이 내부망 IP로 둔다
+          PROXY_BIND: ${{ vars.PROXY_BIND || '10.116.64.12' }}
         with:
           host: ${{ secrets.SSH_ADDRESS }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_ID }}
           password: ${{ secrets.SSH_PASSWORD }}
-          envs: DB_ADDRESS,DB_PORT,DB_NAME,DB_SCHEMA,DB_USERNAME,DB_PASSWORD,IMAGE_TAG,NOTICE_OWNER_EMAIL,SMTP_HOST,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,MAIL_FROM,SITE_URL,KAKAO_CLIENT_ID,KAKAO_CLIENT_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET
+          envs: DB_ADDRESS,DB_PORT,DB_NAME,DB_SCHEMA,DB_USERNAME,DB_PASSWORD,IMAGE_TAG,NOTICE_OWNER_EMAIL,SMTP_HOST,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,MAIL_FROM,SITE_URL,KAKAO_CLIENT_ID,KAKAO_CLIENT_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,PROXY_BIND
           command_timeout: 15m
           script: |
             set -e

@@ -21,7 +21,10 @@ jobs:
           script: |
             D=docker; $D ps >/dev/null 2>&1 || D="sudo -n docker"
             $D ps -a --filter name=myblog --format '{{.Names}} {{.Status}} {{.Ports}}'
-            echo "--- inside: $(curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://localhost:8390/api/topics)"
+            # 8390이 열린 주소 (127.0.0.1 또는 내부망 IP). 비어 있으면 모든 주소라 localhost로 본다
+            B=$($D inspect -f '{{range (index .HostConfig.PortBindings "8390/tcp")}}{{.HostIp}}{{end}}' myblog-proxy 2>/dev/null)
+            echo "--- bind: ${B:-모든 주소}"
+            echo "--- inside: $(curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://${B:-localhost}:8390/api/topics)"
             # 지금 손님을 받는 서버(블루/그린)는 nginx 설정에 적혀 있다
             A=$(grep -o 'myblog-\(blue\|green\)' ~/myblog-data/proxy/conf.d/default.conf 2>/dev/null | head -1)
             echo "--- active: ${A:-없음}"
